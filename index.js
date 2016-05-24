@@ -7,7 +7,7 @@ var casper = require('casper').create({
     }
 });
 
-casper.options.viewportSize = { width: 1280, height: 1024 };
+casper.options.viewportSize = { width: 320, height: 568 };
 
 var fs = require('fs');
 var fname = new Date().getTime() + '.txt';
@@ -63,8 +63,8 @@ casper.then(function () {
 casper.thenOpen('https://lk.c300.me/cabinet/#/account', function () {
     this.echo('save balanse.png, page url is ' + this.getCurrentUrl());
     
-    this.wait(3000, function() {
-           this.capture('balance.png');
+    this.wait(1000, function() {
+           
    });
    
    
@@ -98,7 +98,10 @@ casper.then(function(){
         }
         }); 
   
-     
+     this.wait(5000, function() {
+           this.capture('balance.png');
+   });
+   
 }); //end casper.then
 
 
