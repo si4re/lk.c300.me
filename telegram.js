@@ -8,15 +8,19 @@ var fs = require("fs");
 
 var debtValue = fs.readFileSync("debt.txt");
 
- if (debtValue != 0) {
-     bot.sendMessage(152847349, "Текущая задолженность = " + debtValue + " руб.", { caption: "I'm a bot!" });
+ if (debtValue != 456) {
+     bot.sendMessage(152847349, "Текущая задолженность по кварплате= " + debtValue + " руб.", { caption: "I'm a bot!" });
         }
 
     
 
-
 bot.on('message', function (msg) {
     var chatId = msg.chat.id;
     console.log(msg);
-    bot.sendMessage(chatId, "Hello!", {caption: "I'm a bot!"});
+    if(msg.text == 'balance') {
+        fs.exists('balance.png', function (exists) {
+            if(exists)   
+                bot.sendPhoto(chatId, 'balance.png', {caption: "It's your after login photo!"});  
+    });
+    }
 });

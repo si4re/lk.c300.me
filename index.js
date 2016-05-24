@@ -1,11 +1,13 @@
 
 var casper = require('casper').create({
     pageSettings: {
-        loadImages: false,//The script is much faster when this field is set to false 
-        loadPlugins: false,
+        loadImages: true,//The script is much faster when this field is set to false 
+        loadPlugins: true,
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36'
     }
 });
+
+casper.options.viewportSize = { width: 1280, height: 1024 };
 
 var fs = require('fs');
 var fname = new Date().getTime() + '.txt';
@@ -15,7 +17,7 @@ var xPath = require('casper').selectXPath;
 
 //First step is to open lk.c300.me 
 casper.start().thenOpen("https://lk.c300.me", function () {
-    console.log("lk website opened");
+    console.log("lk.c300.me website opened");
 });
 
 
@@ -36,7 +38,13 @@ casper.then(function () {
 //Wait to be redirected to the Home page, and then make a screenshot 
 casper.then(function () {
     console.log("Make a screenshot and save it as AfterLogin.png");
-    this.capture('AfterLogin.png');
+    this.wait(2000, function() {
+          this.capture('AfterLogin.png');
+   });
+   
+   
+    
+ 
 });
 
 // save  json 
@@ -54,7 +62,12 @@ casper.then(function () {
 
 casper.thenOpen('https://lk.c300.me/cabinet/#/account', function () {
     this.echo('save balanse.png, page url is ' + this.getCurrentUrl());
-    this.capture('balance.png');
+    
+    this.wait(3000, function() {
+           this.capture('balance.png');
+   });
+   
+   
 });
 
 //test xPath
@@ -78,15 +91,14 @@ casper.then(function(){
     });
     
     this.echo("total debt = " + debtValue + " rub");
-    
-    
-       
+      
     fs.write("debt.txt", debtValue, function(err) {
         if(err) {
         return console.log(err);
         }
         }); 
-    
+  
+     
 }); //end casper.then
 
 
