@@ -17,10 +17,16 @@ var debtValue = fs.readFileSync("debt.txt");
 bot.on('message', function (msg) {
     var chatId = msg.chat.id;
     console.log(msg);
-    if(msg.text == 'balance') {
+    if(msg.text == 'meter') {
+        fs.exists('AfterLogin.png', function (exists) {
+            if(exists)   
+                bot.sendPhoto(chatId, 'AfterLogin.png', {caption: "It's your after meter screenshot!"});  
+    });
+    }
+    if(msg.text == 'totalpay') {
         fs.exists('balance.png', function (exists) {
             if(exists)   
-                bot.sendPhoto(chatId, 'balance.png', {caption: "It's your after login photo!"});  
+                bot.sendPhoto(chatId, 'balance.png', {caption: "It's your total pay history!"});  
     });
     }
 });
